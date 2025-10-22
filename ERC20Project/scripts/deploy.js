@@ -1,35 +1,26 @@
 // scripts/deploy.js
-import { ethers, upgrades } from "hardhat";
+import { network } from "hardhat";
 
 async function main() {
-  // 1️⃣ Get deployer account
-  const [deployer] = await ethers.getSigners();
-  console.log("Deploying contracts with account:", deployer.address);
+    const { ethers } = await network.connect();
 
-  // 2️⃣ Deploy Investors (Upgradeable ERC20)
-  const Investors = await ethers.getContractFactory("Investors");
-  const investors = await upgrades.deployProxy(
-    Investors,
-    ["LuxuryApartmentToken", "LPT", deployer.address], // name, symbol, admin
-    { initializer: "initialize" }
-  );
-  await investors.deployed();
-  console.log("Investors deployed at:", investors.address);
+    const [deployer] = await ethers.getSigners();
+    console.log("Deploying contracts with account:", deployer.address);
 
-  // 3️⃣ Deploy DividendDistributor (Upgradeable)
-  const DividendDistributor = await ethers.getContractFactory("DividendDistributor");
-  const rewardTokenAddress = "0x..."; // Replace with actual reward token address
-  const dividendDistributor = await upgrades.deployProxy(
-    DividendDistributor,
-    [investors.address, rewardTokenAddress, deployer.address], // assetToken, rewardToken, admin
-    { initializer: "initialize" }
-  );
-  await dividendDistributor.deployed();
-  console.log("DividendDistributor deployed at:", dividendDistributor.address);
+    // Deploy ERC20 token
+    const Token = await ethers.getContractFactory("TokenizedAsset"); // replace with your contract name
+    const token = await Token.deploy();
+    // await token.deployed();
+    console.log("ERC20 Token deployed to:", token.target);
+
+    // Deploy Dividend contract
+    const Dividend = await ethers.getContractFactory("DividendDistributor"); // replace with your contract name
+    const dividend = await Dividend.deploy([token.target, "0x0...", deployer.address]); // constructor param
+    // await dividend.deployed();
+    console.log("Dividend Contract deployed to:", dividend.target);
 }
 
-// Execute
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+    console.error(error);
+    process.exit(1);
 });
