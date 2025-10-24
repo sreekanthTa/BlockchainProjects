@@ -35,6 +35,11 @@ contract TokenizedAsset is Initializable, ERC20Upgradeable, AccessControlUpgrade
 
         whitelistEnabled = true;
     }
+    // 0x662c69f27d790a85c88E2e1c9b6708813d68eB40
+
+    function checkRole(bytes32 role, address account) public view returns (bool) {
+        return hasRole(role, account);
+    }
 
     // Whitelist functions
     function whitelist(address who) external onlyRole(WHITELISTER_ROLE) {

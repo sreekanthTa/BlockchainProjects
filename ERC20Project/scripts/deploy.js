@@ -11,12 +11,16 @@ async function main() {
     const Token = await ethers.getContractFactory("TokenizedAsset"); // replace with your contract name
     const token = await Token.deploy();
     // await token.deployed();
+    await token.waitForDeployment();
+
     console.log("ERC20 Token deployed to:", token.target);
 
     // Deploy Dividend contract
     const Dividend = await ethers.getContractFactory("DividendDistributor"); // replace with your contract name
     const dividend = await Dividend.deploy([token.target, "0x0...", deployer.address]); // constructor param
     // await dividend.deployed();
+    await token.waitForDeployment();
+
     console.log("Dividend Contract deployed to:", dividend.target);
 }
 
