@@ -1,0 +1,47 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Set & change owner",
+			"kind": "dev",
+			"methods": {},
+			"title": "Owner",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/2_Owner.sol": "Owner"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/2_Owner.sol": {
+			"keccak256": "0x8393b491ff5baf177237d79f35856dedbda6c3f3ab71fddb55affdf1c4c22736",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://4fda7305f84baa84616d29f943a7fb84e482bb03fa37f063b945d569b4d7269b",
+				"dweb:/ipfs/QmRAR4iezHXXBJXihhDJdtNjYyV53bPzz9rTjepKsCxnMs"
+			]
+		}
+	},
+	"version": 1
+}
